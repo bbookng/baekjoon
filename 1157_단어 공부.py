@@ -1,23 +1,13 @@
-word = input()
+word = input().lower()
+word_list = list(set(word))
+cnt = []
 
-d = dict()
-for chr in word:
-    chr = chr.upper()
-    if chr in d:
-        d[chr] += 1
-    else:
-        d[chr] = 1
+for i in word_list:
+    count = word.count(i)
+    cnt.append(count)
 
-flag = 0
-result = max(d.values())
-answer = '?'
-for k, v in d.items():
+if cnt.count(max(cnt)) >= 2:
+    print("?")
 
-    if v == result:
-        flag += 1
-        if flag == 2:
-            answer = '?'
-        else:
-            answer = k
-
-print(answer)
+else:
+    print(word_list[(cnt.index(max(cnt)))].upper())
