@@ -1,12 +1,9 @@
-N = int(input())
+n = int(input())
+score = list(map(int, input().split()))
 
-list = [map(int, input().split())]
+result = []
 
-list.sort()
+for i in score:
+    result.append(i / max(score)*100)
 
-result = 0
-for i in range(1, list[N-2])
-    [i]/[N-1]*100 =+ result
-
-print(result)
-
+print(sum(result)/n)
