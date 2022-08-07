@@ -3,12 +3,11 @@ input= lambda: sys.stdin.readline().strip()
 
 
 col, row = map(int, input().split())
-cut = int(input())
 
 r = [0, row]
 c = [0, col]
 
-for i in range(cut):
+for _ in range(int(input())):
     x = list(map(int, input().split()))
     if x[0] == 0:
         r.append(x[1])
