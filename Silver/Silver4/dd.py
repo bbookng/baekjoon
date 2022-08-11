@@ -1,11 +1,14 @@
 import sys
 input = sys.stdin.readline
 
-arr = [list(map(int, input().split())) for i in range(5)]
+
+arr = [list(map(int,input().split())) for _ in range(5)]
+
 numbers = []
-check = [[0]*5 for _ in range(5)]
-for i in range(5):
-    numbers.extend(map(int, input().split()))
+for _ in range(5):
+    numbers.extend(list(map(int, input().split())))
+
+check = [[0] * 5 for _ in range(5)]
 
 for idx in range(len(numbers)):
     for i in range(5):
@@ -46,4 +49,3 @@ for idx in range(len(numbers)):
                     exit()
 
                 break
-
