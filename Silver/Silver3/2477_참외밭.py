@@ -13,4 +13,6 @@ for i in arr:
         if i[1] > max_R:
             max_R = i[1]
 
+
+
 print((max_C * max_R - minus) * K)
