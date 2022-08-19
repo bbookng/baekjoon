@@ -1,39 +1,21 @@
 import sys
-import xml.sax.handler
-
 input = lambda : sys.stdin.readline().strip()
 
-N = int(input())
-storage = dict()
-for _ in range(N):
-    L, H = map(int, input().split())
-    storage[L] = H
+dp = [0] * 1001
+n = int(input())
+for i in range(n):
+    a, b = map(int,input().split())
+    dp[a] = b
 
-storage = sorted(storage.items())
-x = []
-y = []
-for i in storage:
-    x.append(i[0])
-    y.append(i[1])
+for i in range(dp.index(max(dp))):
+    if dp[i] > dp[i + 1]:
+        dp[i+1] = dp[i]
 
-total = 0
-tmp_x = 0
-tmp_y = 0
-for i in range(N):
-    if y[i] > tmp_y:
-        total += (x[i] - tmp_x) * y[i]
-        tmp_y = y[i]
-        tmp_x = x[i]
-    else:
-        if y[i] == max(y):
-            if y[i+1] != max(y):
-                total += (x[i]-tmp_x) * tmp_y
-                tmp_x = x[i]
-                tmp_y = y[i]
-        if i == N-1:
-            total += (x[i]-tmp_x)*(y[i]*tmp_y)
+height = 0
+for i in range(1000, dp.index(max(dp)), -1):
+    if dp[i] > dp[i-1]:
+        dp[i-1] = dp[i]
 
-print(total)
-
+print(sum(dp))
 
 
