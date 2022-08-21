@@ -1,26 +1,38 @@
 import sys
 input = sys.stdin.readline
+sys.setrecursionlimit(10000)
+
 
 T = int(input())
 
+def dfs(x, y):
+    dx = [1, -1, 0, 0]
+    dy = [0, 0, 1, -1]
 
+    for i in range(4):
+        nx = x + dx[i]
+        ny = y + dy[i]
 
-
-def dfs(now):
-    for nxt in graph[now]:
-        if not visited[nxt]:
-            visited[nxt] = visited[now]+1
-            dfs(nxt)
+        if 0 <= nx < N and 0 <= ny < M:
+            if matrix[nx][ny] == 1:
+                matrix[nx][ny] -= 1
+                dfs(nx, ny)
 
 for tc in range(T):
     M, N, K = map(int, input().split())
-    arr = [list(map(int, input().split())) for _ in range(K)]
+    matrix = [[0]*M for _ in range(N)]
+    cnt = 0
 
-    graph = [[] for _ in range(max(M, N) + 1)]
-    for i in arr:
-        graph[i[0]].append(i[1])
-    print(graph)
-    visited = [0] * K
-    print(visited)
-    dfs(0)
-    print(max(visited))
+    for _ in range(K):
+        m, n = map(int, input().split())
+        matrix[n][m] = 1
+
+    for i in range(N):
+        for j in range(M):
+            if matrix[i][j] > 0:
+                dfs(i, j)
+                cnt += 1
+
+    print(cnt)
+
+
