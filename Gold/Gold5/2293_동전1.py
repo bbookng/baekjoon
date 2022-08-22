@@ -1,6 +1,19 @@
-s = 'Reverse this strings'
-tmp = []
-for i in s:
-    tmp.insert(0, i)
+import sys
+input = sys.stdin.readline
 
-print(''.join(tmp))
+N, K = map(int, input().split())
+
+dp = [0] * (K+1)
+coins = [int(input()) for _ in range(N)]
+
+for coin in coins:
+    dp[coin] = 1
+
+for i in range(1, K+1):
+    for
+
+
+
+
+
+print(min(dp))
