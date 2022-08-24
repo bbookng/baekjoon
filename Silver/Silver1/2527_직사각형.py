@@ -43,15 +43,15 @@ input = sys.stdin.readline
 for _ in range(4):
     x1, y1, x2, y2, x3, y3, x4, y4 = map(int, input().split())
 
-    if y2 < y3 or y4 < y1 or x2 < x3 or x4 < x1:
+    if y2 < y3 or y4 < y1 or x2 < x3 or x4 < x1:    # 꼭짓점을 기준으로 봤을 때 아예 안붙을수가 없는 경우
         print('d')
-    elif x2 == x3 or x1 == x4:
-        if y2 == y3 or y1 == y4:
+    elif x2 == x3 or x1 == x4:                      # 오.위 나 왼.아래 두 꼭짓점의 x 좌표가 같고 같은 선상에 있을 때
+        if y2 == y3 or y1 == y4:                    # y좌표도 일치하면 점
             print('c')
-        else:
+        else:                                       # 선상에 있기만 하면 선분
             print('b')
-    elif y1 == y4 or y2 == y3:
+    elif y1 == y4 or y2 == y3:                      # 위와 동일한 경우
             print('b')
-    else:
+    else:                                           # 다 아니면 직사각형
         print('a')
 
