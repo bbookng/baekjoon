@@ -2,19 +2,23 @@ import sys
 from collections import deque
 input = lambda :sys.stdin.readline().strip()
 
-def dfs(x, y):
-    global cnt
+def bfs(x, y):
+    visited = [[-1]*M for _ in range(N)]
+    q = deque()
+    q.append((x, y))
+    visited[x][y] = 1
+    while q:
+        x, y = q.popleft()
+        if x == N-1 and y == M-1:
+            return visited[N-1][M-1]
+        for dx, dy in [[0, 1], [1, 0], [-1, 0], [0, -1]]:
+            nx, ny = x+dx, y+dy
+            if 0 <= nx < N and 0 <= ny < M and board[nx][ny] == 1 and visited[nx][ny] == -1:
+                q.append((nx, ny))
+                visited[nx][ny] = visited[x][y] + 1
 
-        for i in range(4):
-            nx = x + dx[i]
-            ny = y + dx[i]
-
-            if 0 <= nx < N and 0 <= ny < M and board[nx][ny] == 1:
 
 N, M = map(int, input().split())
 board = [list(map(int, input())) for _ in range(N)]
 
-dx = [-1, 1, 0, 0]
-dy = [0, 0, -1, 1]
-
-print(dfs(0, 0))
+print(bfs(0, 0))
