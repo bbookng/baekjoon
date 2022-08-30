@@ -20,24 +20,25 @@ input = lambda : sys.stdin.readline().strip()
 #                 dfs(nx, ny, tmp+1)
 #                 check.remove(board[nx][ny])
 
-def dfs(i, j, visited):
+def dfs(i, j, result):
     global cnt
 
-    if cnt >= 26:
-        return
-
-    if cnt < len(visited):
-        cnt = len(visited)
+    if result > cnt:
+        cnt = result
 
     for di, dj in ((0, 1), (1, 0), (-1, 0), (0, -1)):
         ni, nj = i + di, j + dj
 
-        if 0 <= ni < R and 0 <= nj < C:
-            if board[ni][nj] not in visited:
-                dfs(ni, nj, visited+[board[ni][nj]])
+        if 0 <= ni < R and 0 <= nj < C and check[ord(board[ni][nj]) - 65] == 0:
+            check[ord(board[ni][nj]) - 65] = 1
+            dfs(ni, nj, result+1)
+            check[ord(board[ni][nj]) - 65] = 0
 
-cnt = 0
+
 R, C = map(int, input().split())
 board = [list(input()) for _ in range(R)]
-dfs(0, 0, [board[0][0]])
+check = [0] * 26
+check[ord(board[0][0]) - 65] = 1
+cnt = 0
+dfs(0, 0, 1)
 print(cnt)
