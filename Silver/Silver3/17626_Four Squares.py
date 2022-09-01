@@ -3,4 +3,11 @@ import math
 input = sys.stdin.readline
 
 N = int(input())
-dp = [0] * (N+1)
+
+cnt = 1
+while N % math.sqrt(N):
+    N = round(math.sqrt(N))
+    N //= math.sqrt(N)
+    cnt += 1
+
+print(cnt)

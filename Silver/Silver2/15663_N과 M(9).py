@@ -1,10 +1,9 @@
 N, M = map(int,input().split())
 numbers = list(map(int, input().split()))
 numbers.sort()
-chosen = [-1] * M
 
-def solution(n, M):
-    if n == M:
+def solution(i, arr):
+    if i == M:
         print(" ".join(map(str, arr)))
         return
 
@@ -12,5 +11,4 @@ def solution(n, M):
         if not j in arr:
             solution(i+1, arr + [j])
 
-
-solution(0, M)
+solution(0, [])
