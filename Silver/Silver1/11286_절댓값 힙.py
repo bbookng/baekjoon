@@ -13,7 +13,9 @@ for _ in range(n):
   else:
     if m > 0:
       heapq.heappush(heap, (m,m))
+      print(heap)
     elif m < 0:
       heapq.heappush(heap, (-m , m))
+      print(heap)
 
 
