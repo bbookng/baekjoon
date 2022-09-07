@@ -4,19 +4,19 @@ input = lambda :sys.stdin.readline().strip()
 
 dx = [-1, 1, 0, 0, 0, 0]
 dy = [0, 0, -1, 1, 0, 0]
-dh = [0, 0, 0, 0, -1, 1]
+dz = [0, 0, 0, 0, -1, 1]
 
 def bfs():
     while q:
-        x, y, h = q.popleft()
+        x, y, z = q.popleft()
 
         for i in range(6):
             nx = x + dx[i]
             ny = y + dy[i]
-            nh = h + dh[i]
-            if 0 <= nx < N and 0 <= ny < M and 0 <= nh < H and board[nh][nx][ny] == 0:
-                q.append((nx, ny, nh))
-                board[nh][nx][ny] = board[h][x][y] + 1
+            nz = z + dz[i]
+            if 0 <= nx < N and 0 <= ny < M and 0 <= nz < H and board[nz][nx][ny] == 0:
+                q.append((nx, ny, nz))
+                board[nz][nx][ny] = board[z][x][y] + 1
 
 
 

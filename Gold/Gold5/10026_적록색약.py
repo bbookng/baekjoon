@@ -9,9 +9,10 @@ visitied = [[0] * N for _ in range(N)]
 cnt1 = 0
 cnt2 = 0
 
+dx = [-1, 1, 0, 0]
+dy = [0, 0, -1, 1]
+
 def dfs(x, y):
-    dx = [-1, 1, 0, 0]
-    dy = [0, 0, -1, 1]
     visitied[x][y] = 1
     for i in range(4):
         nx = x + dx[i]
