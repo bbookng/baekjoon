@@ -22,7 +22,6 @@ sys.setrecursionlimit(10**6)
 #             return 2
 #     return 0
 #
-#
 # T = int(input())
 # for _ in range(T):
 #     s = list(input())
