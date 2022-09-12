@@ -1,21 +1,28 @@
 import sys
+from collections import deque
 input = sys.stdin.readline
 
-INF = float('inf')
-def solution():
-    dp = [INF] * 100001
+def bfs(N):
+    q = deque([N])
+    visited[N][0] = 0
+    visited[N][1] = 1
 
-    for i in range(N+1):
-        dp[i] = N-i
+    while q:
+        x = q.popleft()
 
-    for i in range(N+1, K+1):
-        if i % 2:
-            dp[i] = min(dp[i-1]+1, dp[(i+1)//2]+2)
-        else:
-            dp[i] = min(dp[i-1]+1, dp[i//2]+1)
-
-    return dp[K]
+        for i in [x - 1, x + 1, x * 2]:
+            if 0 <= i <= 100000:
+                if visited[i][0] == -1:
+                    visited[i][0] = visited[x][0] + 1
+                    visited[i][1] = visited[x][1]
+                    q.append(i)
+                elif visited[i][0] == visited[x][0] + 1:
+                    visited[i][1] += visited[x][1]
 
 N, K = map(int, input().split())
+visited = [[-1, 0] for _ in range(100001)]
 
-print(solution())
+bfs(N)
+print(visited[K][0])
+print(visited[K][1])
+
