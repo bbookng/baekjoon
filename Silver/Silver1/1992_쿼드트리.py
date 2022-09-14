@@ -1,11 +1,6 @@
 import sys
 input = lambda: sys.stdin.readline().strip()
 
-n = int(input())
-arr = [list(input()) for _ in range(n)]
-
-result = []
-
 def solution(arr):
     K = len(arr)
     if K == 1:
@@ -21,15 +16,14 @@ def solution(arr):
     s3 = solution(arr3)
     s4 = solution(arr4)
 
-    if s1 == s2 == s3 == s4:
-        result.append(s1)
+    if s1 == s2 == s3 == s4 and s1.isnumeric():
+        return s1
 
     else:
-        result.append('(')
-        for s in [s1, s2, s3, s4]:
-            result.append(s)
-        result.append(')')
+        return f'({s1}{s2}{s3}{s4})'
 
-solution(arr)
-print(*result, end='')
+
+n = int(input())
+arr = [list(input()) for _ in range(n)]
+print(solution(arr))
 
