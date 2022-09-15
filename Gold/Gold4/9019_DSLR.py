@@ -9,27 +9,26 @@ def bfs(A):
         tmp, method = q.popleft()
         if tmp == B:
             return method
-        D = (str(int(tmp)*2 % 10000)).zfill(4)
-        S = (str(int(tmp)-1)).zfill(4) if tmp != '0000' else '9999'
-        L = tmp[1:] + tmp[0]
-        R = tmp[3] + tmp[:3]
+        D = (tmp * 2) % 10000
+        S = tmp - 1 if tmp != 0 else 9999
+        L = (tmp % 1000) * 10 + (tmp // 1000)
+        R = (tmp % 10) * 1000 + (tmp // 10)
 
         for i in [D, S, L, R]:
-            if i == D and not visited[int(D)]:
+            if i == D and not visited[D]:
                 q.append([D, method+'D'])
-            elif i == S and not visited[int(D)]:
+            elif i == S and not visited[S]:
                 q.append([S, method + 'S'])
-            elif i == L and not visited[int(D)]:
+            elif i == L and not visited[L]:
                 q.append([L, method + 'L'])
-            elif i == R and not visited[int(D)]:
+            elif i == R and not visited[R]:
                 q.append([R, method + 'R'])
 
 
 T = int(input())
 
 for _ in range(T):
-    A, B = map(lambda x: x.zfill(4), input().split())
-    visited = [0] * 10000
+    A, B = map(int, input().split())
+    visited = [0] * 10001
     print(bfs(A))
-
 
