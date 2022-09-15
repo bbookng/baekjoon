@@ -17,12 +17,16 @@ def bfs(A):
         for i in [D, S, L, R]:
             if i == D and not visited[D]:
                 q.append([D, method+'D'])
+                visited[D] = 1
             elif i == S and not visited[S]:
                 q.append([S, method + 'S'])
+                visited[S] = 1
             elif i == L and not visited[L]:
                 q.append([L, method + 'L'])
+                visited[L] = 1
             elif i == R and not visited[R]:
                 q.append([R, method + 'R'])
+                visited[R] = 1
 
 
 T = int(input())
