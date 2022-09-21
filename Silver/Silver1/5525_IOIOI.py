@@ -1,10 +1,9 @@
 import sys
 input = sys.stdin.readline
 
-N = int(input().rstrip())
-M = int(input().rstrip())
-S = input().rstrip()
-
+N = int(input())
+M = int(input())
+S = input()
 answer = 0
 count = 0
 i = 1
