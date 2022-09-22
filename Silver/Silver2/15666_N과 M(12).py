@@ -1,18 +1,21 @@
 N, M = map(int, input().split())
-arr = list(map(int, input().split()))
-arr.sort()
-chosen = [-1] * M
-tmp = []
+arr = sorted(list(map(int, input().split())))
 
-def solution(n, m):
-    if n == m:
-        if chosen not in tmp:
-            tmp.append(chosen)
-            print(*chosen)
-            return
+tmp = []
+result = []
+
+def solution(n):
+    if n == M:
+        s = ' '.join(map(str, tmp))
+        if s not in result:
+            print(s)
+            result.append(s)
+        return
     else:
         for i in range(len(arr)):
-            chosen[n] = arr[i]
-            solution(n+1, m)
+            if n == 0 or tmp[-1] <= arr[i]:
+                tmp.append(arr[i])
+                solution(n+1)
+                tmp.pop()
 
-solution(0, M)
+solution(0)
