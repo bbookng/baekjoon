@@ -1,43 +1,57 @@
-import sys
-import heapq
+#
+# queries = [[2, 10],[7, 1],[2, 5],[2, 9],[7, 32]]
+#
+# def solution(queries):
+#     answer = 0
+#     dic = dict()
+#     for arr, nums in queries:
+#         if arr in dic:
+#             if dic[arr][1] < dic[arr][0] + nums:
+#                 while dic[arr][1] >= dic[arr][0] + nums:
+#                     dic[arr][1] *= 2
+#                 answer += dic[arr][0]
+#                 dic[arr][0] += nums
+#             else:
+#                 dic[arr][0] += nums
+#         else:
+#             i = 0
+#             while True:
+#                 if 2**i >= nums:
+#                     size = 2**i
+#                     break
+#                 i += 1
+#             dic[arr] = [nums, size]
+#     return answer
+#
+# print(solution(queries))
 
-input = lambda :sys.stdin.readline().strip()
 
-N, M = map(int, input().split())
-arr = [list(map(int, input().split())) for _ in range(N)]
+N, M = 3, 2
+fires = [[1, 1]]
+ices = [[3, 3]]
+ice = [k**2 + (k-1)**2 for k in range(2, M+2)]
 
-def solution(i, j, di, dj):
-    def make_candidates(array, tmp):
-        for _ in range(2):
-            value, ci, cj = heapq.heappop(array)
-            tmp -= value
-            visited.append((ci, cj))
+def solution(N, M, fires, ices):
+    answer = [[]]
+    town = [[0]*N for _ in range(N)]
+    for k in  range(1, M+1):
+        for i in range(k+1):
+            for j in range(k+1):
+                town[fires[0][0]-1+i][fires[0][1]-1+j] += 1
 
-            for di, dj in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
-                ni, nj = ci + di, cj + dj
-                if 0 <= ni < N and 0 <= nj < M and (ni, nj) not in visited and (-arr[ni][nj], ni, nj) not in q:
-                    heapq.heappush(candidates, (-arr[ni][nj], ni, nj))
-        return tmp
+    dx = [1, -1, 0, 0, -1, -1, 1, 1]
+    dy = [0, 0, -1, 1, -1, 1, -1, 1]
 
-    q = []
-    heapq.heappush(q, (-arr[i][j], i, j))
-    heapq.heappush(q, (-arr[i+di][j+dj], i+di, j+dj))
+    for k in range(1, M+1):
+        for i in range(N):
+            for j in range(N):
+                nx = ices
+                if abs(x) + abs(y) <= k and 0 <= x < N and 0 <= y < N:
+                    town[x][y] -= 1
 
-    visited = []
-    candidates = []
+    print(town)
+    return
 
-    res = make_candidates(q, 0)
-    res = make_candidates(candidates, res)
+solution(N, M, fires, ices)
 
-    return res
 
-answer = 0
-for i in range(N-1):
-    for j in range(M):
-        answer = max(answer, solution(i, j, 1, 0))
-
-for i in range(N):
-    for j in range(M-1):
-        answer = max(answer, solution(i, j, 0, 1))
-
-print(answer)
