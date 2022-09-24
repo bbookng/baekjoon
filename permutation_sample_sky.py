@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #
 # queries = [[2, 10],[7, 1],[2, 5],[2, 9],[7, 32]]
 #
@@ -55,3 +56,21 @@ def solution(N, M, fires, ices):
 solution(N, M, fires, ices)
 
 
+=======
+N, B = map(int, input().split())
+arr = [list(map(int, input().split())) for _ in range(N)]
+result = arr[:]
+
+cnt = 0
+while cnt != B:
+    for i in range(N):
+        for j in range(N):
+            for k in range(N):
+                result[i][j] += result[i][k] * result[k][i]
+
+    cnt += 1
+for i in range(N):
+    for j in range(N):
+        result[i][j] %= 1000
+print(result)
+>>>>>>> 30ceee7218389cc3a4b6522d86219acc6f00d919
