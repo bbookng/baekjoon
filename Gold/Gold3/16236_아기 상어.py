@@ -1,38 +1,56 @@
 import sys
-input = sys.stdin.readline
 from collections import deque
+input = sys.stdin.readline
 
 N = int(input())
-board = [list(map(int, input().split())) for _ in range(N)]
+arr = [list(map(int, input().split())) for _ in range(N)]
 
-size = 2
-
+# 처음 위치 찾기
 for i in range(N):
     for j in range(N):
-        if board[i][j] == 9:
-            board[i][j] = 0
-            a, b = i, j
+        if arr[i][j] == 9:
+            si, sj = i, j
+            arr[i][j] = 0
             break
+    else:
+        continue
+    break
 
-dx = [-1, 0, 1, 0]
-dy = [0, 1, 0, -1]
+size = 2
+time = 0
+eaten = 0
+answer = 0
 
-fish = []
-cnt = 0
-
-def bfs():
-    visited = [[-1] * N for _ in range(N)]
-    q = deque([(a, b, 0)])
-    visited[a][b] = 0
+while True:
+    q = deque()
+    q.append((time, si, sj))
+    visited = [[0] * N for _ in range(N)]
+    candidates = []
+    limit = 999999
     while q:
-        x, y = q.popleft()
-        for i in range(4):
-            nx, ny = x + dx[i], y + dy[i]
-            if 0 <= nx < N and 0 <= ny < N and visited[nx][ny] == -1 and board[nx][ny] <= size:
-                visited[nx][ny] = visited[x][y] + 1
-                q.append((nx, ny, visited[nx][ny] + 1))
-                fish.append((nx, ny, visited[nx][ny] + 1))
+        time, ci, cj = q.popleft()
+        if limit < time:
+            break
+        if arr[ci][cj] != 0 and arr[ci][cj] < size:
+            candidates.append((ci, cj, time))
+            limit = time
 
-    if len(fish) > 0:
+        for di, dj in ((-1, 0), (0, -1), (0, 1), (1, 0)):
+            ni, nj = ci + di, cj + dj
+            if 0 <= ni < N and 0 <= nj < N and not visited[ni][nj] and arr[ni][nj] <= size:
+                visited[ni][nj] = 1
+                q.append((time+1, ni, nj))
+    candidates.sort()
+    if candidates:
+        si, sj, time = candidates[0]
+        answer = time
+        arr[si][sj] = 0
+        eaten += 1
+        if eaten == size:
+            size += 1
+            eaten = 0
+    else:
+        break
 
+print(answer)
 

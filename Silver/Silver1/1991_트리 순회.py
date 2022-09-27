@@ -1,4 +1,5 @@
 import sys
+sys.setrecursionlimit(10**6)
 input = lambda :sys.stdin.readline().strip()
 
 N = int(input())
@@ -19,7 +20,6 @@ def preorder(node):
 def inorder(node):
     if node == '.':
         return
-
     inorder(tree[node][0])
     print(node, end = '')
     inorder(tree[node][1])
