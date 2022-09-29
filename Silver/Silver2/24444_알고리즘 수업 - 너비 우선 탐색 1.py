@@ -17,8 +17,6 @@ def bfs(x):
                 cnt += 1
                 q.append(i)
 
-
-
 N, M, R = map(int, input().split())
 graph = [[] for _ in range(N+1)]
 
