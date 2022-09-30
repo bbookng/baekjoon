@@ -1,32 +1,40 @@
-import sys
+import sys, heapq
 input = sys.stdin.readline
 
-N, E = map(int, input().split())
-graph = [[float('inf')] * (N+1) for _ in range(N+1)]
+def dijkstra(S):
+    arr = [float('inf')] * (V + 1)
+    q = []
+    heapq.heappush(q, (0, S))
+    arr[S] = 0
+    while q:
+        dist, now = heapq.heappop(q)
+        if arr[now] < dist:
+            continue
+        for i in graph[now]:
+            cost = dist + i[1]
+            if cost < arr[i[0]]:
+                arr[i[0]] = cost
+                heapq.heappush(q, (cost, i[0]))
+
+    return arr
+
+
+V, E = map(int, input().split())
+graph = [[] for _ in range(V+1)]
 
 for _ in range(E):
-    a, b, c = map(int ,input().split())
-    graph[a][b] = c
-    graph[b][a] = c
-
-for i in range(1, N+1):
-    graph[i][i] = 0
-
-for k in range(1, N+1):
-    for i in range(1, N+1):
-        for j in range(1, N+1):
-            graph[i][j] = min(graph[i][j], graph[i][k] + graph[k][j])
+    a, b, c = map(int, input().split())
+    graph[a].append((b, c))
+    graph[b].append((a, c))
 
 V1, V2 = map(int, input().split())
 
-if graph[1][V1] == 'inf' or graph[V1][V2] == 'inf' or graph[V2][N] == 'inf':
-    ans1 = -1
-else:
-    ans1 = graph[1][V1] + graph[V1][V2] + graph[V2][N]
+distance1 = dijkstra(1)
+distance2 = dijkstra(V1)
+distance3 = dijkstra(V2)
 
-if graph[1][V2] == 'inf' or graph[V2][V1] == 'inf' or graph[V1][N] == 'inf':
-    ans2 = -1
-else:
-    ans2 = graph[1][V2] + graph[V2][V1] + graph[V1][N]
+ans1 = distance1[V1] + distance2[V2] + distance3[V]
+ans2 = distance1[V2] + distance3[V1] + distance2[V]
 
-print(min(ans1, ans2))
+result = min(ans1, ans2)
+print("-1" if result == float('inf') else result)

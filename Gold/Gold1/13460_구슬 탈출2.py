@@ -12,16 +12,14 @@ def bfs():
     i = 0
     while q:
         x, y = q.popleft()
+        print(x, y)
         while True:
             nx, ny = x + dx[i], y + dy[i]
-            print(nx, ny)
+            # print(nx, ny)
             if 0 <= nx < N and 0 <= ny < M:
                 if arr[nx][ny] == '#':
-                    while arr[nx][ny] != '#':
-                        i += 1
-                        if i > 3:
-                            i -= 4
-
+                    i += 1
+                    i %= 4
                 elif arr[nx][ny] == 'O':
                     return visited[nx][ny]
                 visited[nx][ny] = 1
