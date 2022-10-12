@@ -85,6 +85,7 @@ def solve(idx):
         for i in range(N):
             answer = max(answer, max(arr[i]))
         return
+
     b = [x[:] for x in arr]
 
     for k in range(4):
