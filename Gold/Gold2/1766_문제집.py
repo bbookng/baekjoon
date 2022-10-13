@@ -13,14 +13,16 @@ for _ in range(M):
 
 def solution():
     result = []
-    q = deque()
+    q = []
 
     for i in range(1, N+1):
         if indegree[i] == 0:
             q.append(i)
 
     while q:
-        now = q.popleft()
+        # q = deque(sorted(list(q)))
+        q.sort()
+        now = q.pop(0)
         result.append(now)
         for i in graph[now]:
             indegree[i] -= 1
