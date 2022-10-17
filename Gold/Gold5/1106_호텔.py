@@ -12,3 +12,4 @@ for cost, customer in arr:
             result = min(dp[i], result)
 
 print(result)
+

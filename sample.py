@@ -14,8 +14,13 @@ for tc in range(1, T+1):
 
     while trees:
         for i in range(len(trees)):
-            print(cnt, trees[i])
+            print(cnt, trees)
             if flag:
+                if len(trees) == 1 and trees[0] == std-2:
+                    cnt += 1
+                    flag = False
+                    continue
+
                 if std-1 in trees:
                     cnt += 1
                     flag = False
@@ -26,14 +31,16 @@ for tc in range(1, T+1):
                 cnt += 1
             else:
                 if std-2 in trees:
-                    cnt += 1
                     flag = True
                     trees.remove(std-2)
+                    cnt += 1
                     break
                 trees[i] += 2
                 if trees[i] > std:
                     trees[i] -= 2
-
+                    flag = True
+                    cnt += 1
+                    continue
                 flag = True
                 cnt += 1
 
