@@ -16,6 +16,7 @@ def catch(col):
     for i in range(R):
         if (i, col) in shark:
             total += shark[(i, col)][2]
+            print(shark)
             print(i, col, total)
             shark.pop((i, col))
             break
@@ -26,20 +27,23 @@ def move():
         s, d, z = v
 
         if d == 1:
-            d = 2 if ((y - s) // R) % 2 else 1
-            y = R - ((y - s) % R)
+            d = 2 if ((x - s) // R) % 2 else 1
+            x = R - ((x - s) % R)
 
         elif d == 2:
-            d = 1 if ((y + s) // R) % 2 else 2
-            y = R - ((y + s) % R)
+            print(k, v)
+            d = 1 if ((x + s) // R) % 2 else 2
+            x = R - ((x + s) % R)
+            print(R - ((x + s) % R))
+            print(k, v)
 
         elif d == 3:
-            d = 4 if ((x + s) // C) % 2 else 3
-            x = R - ((x + s) % C)
+            d = 4 if ((y + s) // C) % 2 else 3
+            y = R - ((y + s) % C)
 
         elif d == 4:
-            d = 3 if ((x - s) // C) % 2 else 4
-            x = R - ((x - s) % C)
+            d = 3 if ((y - s) // C) % 2 else 4
+            y = R - ((y - s) % C)
 
         if (x, y) in shark:
             if shark[(x, y)][2] > z:
