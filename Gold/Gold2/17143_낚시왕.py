@@ -27,15 +27,12 @@ def move():
         s, d, z = v
 
         if d == 1:
-            d = 2 if ((x - s) // R) % 2 else 1
-            x = R - ((x - s) % R)
+            d = 2 if 0 <= s-x <= R-1-s+x else 1
+            x = R - ((x - s) % (R-1))
 
         elif d == 2:
-            print(k, v)
             d = 1 if ((x + s) // R) % 2 else 2
             x = R - ((x + s) % R)
-            print(R - ((x + s) % R))
-            print(k, v)
 
         elif d == 3:
             d = 4 if ((y + s) // C) % 2 else 3
