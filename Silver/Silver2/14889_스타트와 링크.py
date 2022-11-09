@@ -1,23 +1,23 @@
 import sys
 input = sys.stdin.readline
 
-def dfs(depth, idx):
-    global min_V
-    if depth == N // 2:
+def dfs(cnt, idx):
+    global min_
+    if cnt == N // 2:                                   # 팀 나눴으면
         start, link = 0, 0
         for i in range(N):
             for j in range(i + 1, N):
-                if visited[i] and visited[j]:
-                    start += (arr[i][j] + arr[j][i])
-                elif not visited[i] and not visited[j]:
+                if visited[i] and visited[j]:           # visited == 1이면 스타트팀
+                    start += (arr[i][j] + arr[j][i])    # 능력치 구하기
+                elif not visited[i] and not visited[j]: # link 팀
                     link += (arr[i][j] + arr[j][i])
-        min_V = min(min_V, abs(start - link))
+        min_ = min(min_, abs(start - link))             # 최솟값 갱신
         return
 
     for i in range(idx, N):
         if not visited[i]:
-            visited[i] = 1
-            dfs(depth + 1, i + 1)
+            visited[i] = 1              # start 팀
+            dfs(cnt + 1, i + 1)         # 재귀
             visited[i] = 0
 
 
@@ -25,8 +25,8 @@ def dfs(depth, idx):
 N = int(input())
 arr = [list(map(int, input().split())) for _ in range(N)]
 visited = [0] * N
-min_V = float('inf')
+min_ = float('inf')
 
 dfs(0, 0)
-print(min_V)
+print(min_)
 
