@@ -13,14 +13,3 @@ for i in range(2, 3):
     tmp = pd.DataFrame(response.json()["results"])
 
     df = pd.concat([df, tmp], ignore_index=True)
-
-
-
-df = df[['adult', 'backdrop_path', 'genre_ids', 'id', 'original_language', 'overview', 'popularity', 'poster_path',
-       'release_date', 'title', 'video', 'vote_average', 'vote_count']]
-
-def get_provider(movie_id):
-    watch_provider = f"/movie/{movie_id}/watch/providers"
-
-
-df.to_csv("data.csv", encoding='cp949')
