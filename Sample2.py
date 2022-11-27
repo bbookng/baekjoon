@@ -1,32 +1,26 @@
-def solution(N, trees):
-    trees.sort()
-    std = trees[-1]
-    while std in trees:
-        trees.pop()
+import sys
+sys.setrecursionlimit(10**9)
 
-    trees = list(map(lambda x: std-x, trees))
-    one, two = 0, 0
-    for tree in trees:
-        one += tree % 2
-        two += tree // 2
+def preorder(in_start, in_end, post_start, post_end):
+    if(in_start > in_end) or (post_start > post_end):
+        return
+
+    parents = postorder[post_end]
+    print(parents, end=" ")
+
+    left = position[parents] - in_start
+    right = in_end - position[parents]
+
+    preorder(in_start, in_start+left-1, post_start, post_start+left-1)
+    preorder(in_end-right+1, in_end, post_end-right, post_end-1)
+
+n = int(input())
+inorder = list(map(int, input().split()))
+postorder = list(map(int, input().split()))
 
 
-    while one < two:
-        one += 2
-        two -= 1
+position = [0]*(n+1)
+for i in range(n):
+    position[inorder[i]] = i
 
-    if one == two:
-        return one*2
-    elif one - two == 2:
-        return one*2 - 2
-    else:
-        return one * 2 - 1
-
-T = int(input())
-for tc in range(1, T+1):
-    N = int(input())
-    trees = list(map(int, input().split()))
-
-    cnt = solution(N, trees)
-    print(cnt)
-
+preorder(0, n-1, 0, n-1)
