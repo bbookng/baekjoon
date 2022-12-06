@@ -1,26 +1,26 @@
-import sys
-sys.setrecursionlimit(10**9)
+N = int(input())
+arr = list(map(int,input().split()))
 
-def preorder(in_start, in_end, post_start, post_end):
-    if(in_start > in_end) or (post_start > post_end):
-        return
+dp = []
+for i in range(N):
+    dp.append((1, i))
 
-    parents = postorder[post_end]
-    print(parents, end=" ")
+_max = 0
+idx = -1
+for i in range(1, N):
+    for j in range(i):
+        if arr[i] > arr[j]:
+            if dp[i][0] < dp[j][0] + 1:
+                dp[i] = (dp[j][0] + 1, j)
+                if dp[i][0] > _max:
+                    _max = dp[i][0]
+                    idx = i
 
-    left = position[parents] - in_start
-    right = in_end - position[parents]
+print(_max)
+answer = []
+answer.append(arr[idx])
+while idx > 0:
+    idx = dp[idx][1]
+    answer.append(arr[idx])
 
-    preorder(in_start, in_start+left-1, post_start, post_start+left-1)
-    preorder(in_end-right+1, in_end, post_end-right, post_end-1)
-
-n = int(input())
-inorder = list(map(int, input().split()))
-postorder = list(map(int, input().split()))
-
-
-position = [0]*(n+1)
-for i in range(n):
-    position[inorder[i]] = i
-
-preorder(0, n-1, 0, n-1)
+print(" ".join(map(str, answer[::-1])))
