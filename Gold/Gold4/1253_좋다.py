@@ -2,28 +2,25 @@ N = int(input())
 numbers = sorted(list(map(int, input().split())))
 answer = 0
 
-nums = []
-
 for i in range(N):
-    for j in range(N):
-        if i != j and numbers[i] + numbers[j] in numbers:
-            nums.append(numbers[i] + numbers[j])
-
-nums = sorted(nums)
-
-for num in nums:
+    number = numbers[i]
     left = 0
-    right = len(numbers) - 1
+    right = N - 1
 
     while left != right:
         tmp = numbers[left] + numbers[right]
-        if tmp == num:
-            answer += 1
-            print(numbers[left], numbers[right], tmp, num)
-            break
-        elif tmp < num:
+        if tmp == number:
+            if i != left and i != right:
+                answer += 1
+                break
+            elif i == left:
+                left += 1
+            else:
+                right -= 1
+
+        elif tmp <= number:
             left += 1
-        elif tmp > num:
+        elif tmp > number:
             right -= 1
 
 print(answer)
