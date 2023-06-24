@@ -7,6 +7,7 @@ arr = [int(input()) for _ in range(N)]
 check = defaultdict(int)
 
 left, right = 0, k
+
 for i in range(k):
     check[str(arr[i])] += 1
 
