@@ -1,5 +1,4 @@
 import sys
-sys.setrecursionlimit(10**6)
 input = lambda :sys.stdin.readline().strip()
 
 N = int(input())
