@@ -1,20 +1,23 @@
-N = int(input())
-arr = list(map(int, input().split()))
+import sys
+input = sys.stdin.readline
 
-dp = [1] * N
-def solution(start, end, pivot):
-    if start > end:
-        return 0
-    if start == end:
-        return 1
-    solution(start, pivot)
+n = int(input())
+cases = list(map(int, input().split()))
+lis = [0]
 
-    return
+for case in cases:
+    if lis[-1]<case:
+        lis.append(case)
+    else:
+        left = 0
+        right = len(lis)
 
+        while left<right:
+            mid = (right+left)//2
+            if lis[mid]<case:
+                left = mid+1
+            else:
+                right = mid
+        lis[right] = case
 
-for i in range(1, N):
-    for j in range(i):
-        if arr[i] > arr[j]:
-            dp[i] = max(dp[i], dp[j] + 1)
-
-print(max(dp))
+print(len(lis)-1)
