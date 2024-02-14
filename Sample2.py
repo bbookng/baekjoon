@@ -1,20 +1,20 @@
-N = int(input())
 
-nodes = list(map(int, input().split()))
-X = int(input())
+def solution(s, word_dict):
+    max_answer = [0]
+    def bt(s, i, cnt):
 
-nodes[nodes.index(-1)] = X
-nodes.sort()
+        if i == len(s)-1:
+            if max_answer[0] < cnt:
+                max_answer[0] = cnt
+            return
 
+        for word_index in range(len(word_dict)):
+            if s[i:i+len(word_dict[word_index])] == word_dict[word_index]:
+                bt(s, i+len(word_dict[word_index])-1, cnt+1)
 
-def solution(n, d):
-    if not d:
-        print(nodes[n], d)
-        return
-    if nodes[n - d]:
-        solution(n - d, d//2)
-    if nodes[n + d]:
-        solution(n + d, d//2)
-    print(nodes[n], d)
+    bt(s, 0, 0)
+    return max_answer[0]
 
-solution(N // 2, (N+1)//4)
+print(solution("centerminus", ["cent", "center", "term", "terminus", "rm", "min", "minus", "us"]))
+print(solution("aaaababab", ["aaa", "aaaa", "ab", "bab", "aababa"]))
+
