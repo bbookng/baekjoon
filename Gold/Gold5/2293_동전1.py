@@ -1,19 +1,18 @@
 import sys
 input = sys.stdin.readline
 
+# N : 동전의 가짓수
+# K : 가치의 합
+
 N, K = map(int, input().split())
 
 dp = [0] * (K+1)
+dp[0] = 1
 coins = [int(input()) for _ in range(N)]
 
 for coin in coins:
-    dp[coin] = 1
+    for i in range(coin, K+1):
+        dp[i] += dp[i - coin]
 
-for i in range(1, K+1):
-    for
+print(dp[K])
 
-
-
-
-
-print(min(dp))
