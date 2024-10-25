@@ -32,5 +32,6 @@ for left in range(N):
 
         # 최대 합 업데이트
         max_sum = max(max_sum, current_max)
+    print(temp)
 
 print(max_sum)
